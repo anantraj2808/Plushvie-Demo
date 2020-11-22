@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "388398710994",
+    "firebase_url": "https://plushviedemo.firebaseio.com",
+    "project_id": "plushviedemo",
+    "storage_bucket": "plushviedemo.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:388398710994:android:d7375f193e6008728e6d0b",
+        "android_client_info": {
+          "package_name": "com.anantraj.plushvie_demo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "388398710994-cd5stj3gnq1t41mldrk5t532aehbfgp6.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.anantraj.plushvie_demo",
+            "certificate_hash": "09eb93c8aed46e7cf3f63f31433bcc7b5c48c022"
+          }
+        },
+        {
+          "client_id": "388398710994-i3fodglgh3n2c06cun534l14jh6kv3sp.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD5MvFg1OutLx6lvm_LBVKFPJ4KV1UZsC4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "388398710994-i3fodglgh3n2c06cun534l14jh6kv3sp.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
