@@ -43,7 +43,8 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Plushvie Demo',
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
         scaffoldBackgroundColor: Color(0xff1f1f1f),
         primarySwatch: Colors.blue,

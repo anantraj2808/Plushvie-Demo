@@ -54,7 +54,7 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: appBar(),
-      body: Container(
+      body: isLoading ? Container(child: Center(child: CircularProgressIndicator(),),) : Container(
         height: MediaQuery.of(context).size.height,
         width: MediaQuery.of(context).size.width,
         alignment: Alignment.bottomCenter,

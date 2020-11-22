@@ -35,11 +35,17 @@ class _HomeScreenState extends State<HomeScreen> {
     return StreamBuilder(
       stream: recordStream,
       builder: (context,snapshot){
-        return snapshot.hasData ? ListView.builder(
+        return snapshot.hasData ?
+            snapshot.data.documents.length == 0 ?
+            Container(child: Center(child: Text("Nothing to show",style: TextStyle(color: Colors.white70),),),) :
+        ListView.builder(
           itemCount: snapshot.data.documents.length,
           itemBuilder: (context,index){
             return ListTile(
-              title: Text(snapshot.data.documents[index].data()["temp"],style: TextStyle(color: Colors.white),),
+              title: Text(snapshot.data.documents[index].data()["temp"]+"°C  at  "
+                  +snapshot.data.documents[index].data()["date-time"].toString().substring(11,16)+"  on  "
+                  +snapshot.data.documents[index].data()["date-time"].toString().substring(0,10) ,
+                style: TextStyle(color: Colors.white),),
             );
           },
         ) : Container();
@@ -65,9 +71,11 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   setTemp(temp) async {
+    String dateTime = DateTime.now().toIso8601String();
     Map<String,dynamic> tempMap = {
       "temp" : temp,
-      "time" : DateTime.now().millisecondsSinceEpoch
+      "time" : DateTime.now().millisecondsSinceEpoch,
+      "date-time" : dateTime
     };
     String email = "";
     await _helperMethods.getEmailSP().then((value){
@@ -93,6 +101,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 child: new Text('Submit'),
                 onPressed: () {
                   setTemp(_textEditingController.text.toString());
+                  _textEditingController.text = "";
                   Navigator.pop(context);
                 },
               )
@@ -125,7 +134,7 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       body: SingleChildScrollView(
         child: Container(
-          height: 400.0,
+          height: MediaQuery.of(context).size.height-100,
           child: recordList(),
         ),
       ),
