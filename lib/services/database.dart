@@ -18,4 +18,9 @@ class DatabaseMethods{
     var user = FirebaseAuth.instance.currentUser;
     await FirebaseFirestore.instance.collection("Users").doc(user.uid).collection("Records").add(tempMap);
   }
+
+  getRecords()async{
+    return FirebaseFirestore.instance.collection("Users").doc(FirebaseAuth.instance.currentUser.uid)
+        .collection("Records").orderBy("time",descending: true).snapshots();
+  }
 }

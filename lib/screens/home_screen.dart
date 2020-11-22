@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:plushvie_demo/helper/helper_methods.dart';
@@ -19,21 +20,49 @@ class _HomeScreenState extends State<HomeScreen> {
   HelperMethods _helperMethods = HelperMethods();
   DatabaseMethods _databaseMethods = DatabaseMethods();
   TextEditingController _textEditingController = TextEditingController();
+  Stream recordStream;
+  String name = "";
 
 
   @override
   void initState() {
-    //getEmail();
+    getTempRecords();
+    getName();
     super.initState();
   }
 
-//  getEmail() async {
-//    await _helperMethods.getFullNameSP().then((value){
-//      email = value;
-//    });
-//    setState(() {
-//    });
-//  }
+  Widget recordList(){
+    return StreamBuilder(
+      stream: recordStream,
+      builder: (context,snapshot){
+        return snapshot.hasData ? ListView.builder(
+          itemCount: snapshot.data.documents.length,
+          itemBuilder: (context,index){
+            return ListTile(
+              title: Text(snapshot.data.documents[index].data()["temp"],style: TextStyle(color: Colors.white),),
+            );
+          },
+        ) : Container();
+      },
+    );
+  }
+
+  getName() async {
+    await _helperMethods.getFullNameSP().then((value){
+      setState(() {
+        name = value;
+      });
+    });
+
+  }
+
+  getTempRecords(){
+    _databaseMethods.getRecords().then((value){
+      setState(() {
+        recordStream = value;
+      });
+    });
+  }
 
   setTemp(temp) async {
     Map<String,dynamic> tempMap = {
@@ -76,7 +105,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Home"),
+        title: Text(name+"\'s Temp Check List"),
         actions: [
           GestureDetector(
             onTap: (){
@@ -94,9 +123,10 @@ class _HomeScreenState extends State<HomeScreen> {
           )
         ],
       ),
-      body: Container(
-        child: Center(
-          //child: Text(email,style: TextStyle(color: Colors.white),),
+      body: SingleChildScrollView(
+        child: Container(
+          height: 400.0,
+          child: recordList(),
         ),
       ),
       floatingActionButton: FloatingActionButton(
